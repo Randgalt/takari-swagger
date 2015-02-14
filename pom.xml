@@ -7,6 +7,7 @@
     <artifactId>takari</artifactId>
     <version>15</version>
   </parent>
+  <groupId>io.takari.airlift</groupId>
   <artifactId>airlift-swagger</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>takari-jar</packaging>
