@@ -17,21 +17,14 @@ import java.util.Set;
 
 public class ApiDeclaration {
   public final static String DEFAULT_API_VERSION = "1.0.0";
-  private String apiVersion;
-  private String swaggerVersion = "1.1";
+  private String apiVersion = "1.0.0";
+  private String swaggerVersion = "1.2";
   private String basePath;
   private String resourcePath;
   private final List<Api> apis = new ArrayList<Api>();
   private final Set<String> produces = new HashSet<String>();
   private final Set<String> consumes = new HashSet<String>();
   private final Map<String, Model> models = new HashMap<String, Model>();
-
-  /*
-  public ApiDeclaration(String basePath, String resourcePath) {
-    this.basePath = basePath;
-    this.resourcePath = resourcePath;
-  }
-  */
 
   public String getSwaggerVersion() {
     return swaggerVersion;
@@ -138,8 +131,8 @@ public class ApiDeclaration {
     this.consumes.add(consumes);
   }
 
-  public Collection<Model> getModels() {
-    return models.values();
+  public Map<String,Model> getModels() {
+    return models;
   }
 
   public Model getModel(String id) {
@@ -148,5 +141,5 @@ public class ApiDeclaration {
 
   public void addModel(Model model) {
     models.put(model.getId(), model);
-  }
+  }  
 }

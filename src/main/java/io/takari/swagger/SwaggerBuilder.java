@@ -33,6 +33,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
+import com.google.common.collect.Maps;
+
 //
 // TODO: parameterize resourceBase, this needs to come from the server
 // TODO: extra produces/consumes from the resources, do we need class level or does only method level matter?
@@ -41,22 +43,37 @@ import javax.ws.rs.core.Context;
 public class SwaggerBuilder {
 
   // basePath for all the systems resources, where we mount Jersey or RESTEeasy
-  private final String basePath = "http://localhost:8080/api";
+  //private final String basePath = "http://localhost:8080/api";
+  //private final String basePath = "/nexus/service/siesta";
+  
   private final String swaggerVersion = "1.2";
   private final String swaggerApiVersion = "1.0.0"; // I don't actually know what this means
 
-  public Swagger build(List<Class<? extends Object>> clazzes) {
+  private String basePath;
+  private List<Class<? extends Object>> jaxRsClasses;
+  
+  public SwaggerBuilder basePath(String basePath) {
+    this.basePath = basePath;
+    return this;
+  }
+  
+  public SwaggerBuilder jaxRsClasses(List<Class<? extends Object>> jaxRsClasses) {
+    this.jaxRsClasses = jaxRsClasses;
+    return this;    
+  }
+  
+  public Swagger build() {
     Map<String, ApiDeclaration> apis = Maps.newHashMap();
     ResourceListing resourceListing = new ResourceListing(swaggerVersion);
     resourceListing.setApiVersion(swaggerApiVersion);
     //
     // We know here that all these classes have a class-level JAXRS Path annotation
     //
-    for (Class<?> clazz : clazzes) {
+    for (Class<?> clazz : jaxRsClasses) {
       //
       // We don't need to document the SwaggerResource itself
       //
-      if (clazz.getName().equals(SwaggerResource.class.getName())) {
+      if (clazz.getName().equals(ApiDocsResource.class.getName())) {
         continue;
       }
       String resourcePath = clazz.getAnnotation(Path.class).value();
@@ -87,8 +104,10 @@ public class SwaggerBuilder {
       // ${baseUrl}/api/user then it will make a call to ${baseUrl}/swagger/user to find
       // the ApiDeclaration document.
       //
-      apis.put(stripLeadingSlashIfPresent(resourcePath), apiDeclaration);
-      resourceListing.addApi(apiDeclaration, resourcePath);
+      String resourceId = stripLeadingSlashIfPresent(resourcePath).replace('{', '_').replace('}', '_').replace("/", "");
+      resourceId = resourceId.substring(0,resourceId.length()-1);
+      apis.put(resourceId, apiDeclaration);
+      resourceListing.addApi(apiDeclaration, resourceId);
 
       for (Method method : clazz.getMethods()) {
         if (!isJaxrsMethod(method)) {
@@ -102,6 +121,7 @@ public class SwaggerBuilder {
         apiDeclaration.addApi(api(apiDeclaration, apiPath, method));
       }
     }
+    
     return new Swagger(resourceListing, apis);
   }
 
@@ -144,7 +164,8 @@ public class SwaggerBuilder {
     }
 
     Api api = new Api(apiPath, method.getName(), swaggerMethod);
-    Operation operation = api.addOperation(apiPath, swaggerMethod);
+    //Operation operation = api.addOperation(apiPath, swaggerMethod);
+    Operation operation = api.addOperation(method.getName(), swaggerMethod);
     Produces producesAnno = method.getAnnotation(Produces.class);
     if (producesAnno != null) {
       String[] producesValues = producesAnno.value();
@@ -185,7 +206,7 @@ public class SwaggerBuilder {
             // the JSON document will not be posted to the server
             //
             parameterName = "body";
-            apiDeclaration.addModel(model);
+            //apiDeclaration.addModel(model);
           }
         }
       } else {

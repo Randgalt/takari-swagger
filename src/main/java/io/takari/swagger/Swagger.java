@@ -23,4 +23,7 @@ public class Swagger {
     return apiDeclarations;
   }
   
+  public static SwaggerBuilder builder() {
+    return new SwaggerBuilder();
+  }
 }

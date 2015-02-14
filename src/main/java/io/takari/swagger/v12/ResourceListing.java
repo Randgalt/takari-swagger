@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ResourceListing {
 
-  private String apiVersion;
+  private String apiVersion = "1.0.0";
   private String swaggerVersion = "1.2";
   private String basePath;
   private AuthorizationsImpl authorizations;

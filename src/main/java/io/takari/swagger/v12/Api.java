@@ -40,7 +40,7 @@ public class Api {
     assert nickName != null : "nickName can not be null";
     synchronized (operations) {
       for (Operation operation : operations) {
-        if (operation.getNickName().equals(nickName)) {
+        if (operation.getNickname().equals(nickName)) {
           return operation;
         }
       }
@@ -54,7 +54,7 @@ public class Api {
   }
 
   public void removeOperation(Operation operation) {
-    assert operation != null && operation.getNickName() != null : "operation can not be null and must have a nickname";
+    assert operation != null && operation.getNickname() != null : "operation can not be null and must have a nickname";
     synchronized (operations) {
       operations.remove(operation);
     }

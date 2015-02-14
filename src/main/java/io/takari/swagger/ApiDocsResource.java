@@ -1,9 +1,9 @@
 package io.takari.swagger;
 
-import io.airlift.http.server.WebModule;
 import io.takari.swagger.v12.ApiDeclaration;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -14,14 +14,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/docs")
-public class SwaggerResource {
+public class ApiDocsResource {
 
   private Swagger swagger;
 
   @Inject
-  public SwaggerResource(WebModule.WebMapping mapping) {    
-    SwaggerBuilder swaggerBuilder = new SwaggerBuilder();
-    swagger = swaggerBuilder.build(mapping.jaxrsResources());
+  public ApiDocsResource(List<Class<? extends Object>> jaxrsClasses) {    
+    swagger = Swagger.builder() //
+        .basePath("/nexus/service/siesta") //
+        .jaxRsClasses(jaxrsClasses) //
+        .build();
   }
 
   @GET

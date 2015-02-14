@@ -23,9 +23,15 @@ public class Operation {
     GET, POST, PUT, DELETE, HEAD, OPTIONS, PATCH
   }
 
-  public Operation(String nickName, Method method) {
-    this.nickname = nickName;
+  public Operation(String nickname, Method method) {
+    this.nickname = nickname;
     this.method = method;
+    
+    // If the is a nickname of "models" it breaks the Swagger app with:
+    // TypeError: undefined is not a function (evaluating 'model.setReferencedModels(this.models)')
+    if(this.nickname.equals("models")) {
+      this.nickname = "XXX";
+    }
   }
 
   public Method getMethod() {
@@ -37,11 +43,11 @@ public class Operation {
     this.method = method;
   }
 
-  public String getNickName() {
+  public String getNickname() {
     return nickname;
   }
 
-  public void setNickName(String nickName) {
+  public void setNickname(String nickName) {
     assert nickName != null : "nickName can not be null";
     this.nickname = nickName;
   }
