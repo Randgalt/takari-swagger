@@ -1,0 +1,1 @@
+- parameterize the URI base for the Swagger documents

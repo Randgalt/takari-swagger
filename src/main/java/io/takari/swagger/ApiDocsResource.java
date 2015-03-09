@@ -1,11 +1,12 @@
 package io.takari.swagger;
 
+import io.airlift.http.server.WebModule;
 import io.takari.swagger.v12.ApiDeclaration;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,13 +17,15 @@ import javax.ws.rs.core.Response;
 @Path("/docs")
 public class ApiDocsResource {
 
-  private Swagger swagger;
+  public static final String API_BASE_PATH = "io.airlift.swagger.apiBasePath";
+  
+  private final Swagger swagger;
 
   @Inject
-  public ApiDocsResource(List<Class<? extends Object>> jaxrsClasses) {    
+  public ApiDocsResource(WebModule.WebMapping mapping, @Named(API_BASE_PATH) String apiBasePath) {
     swagger = Swagger.builder() //
-        .basePath("/nexus/service/siesta") //
-        .jaxRsClasses(jaxrsClasses) //
+        .basePath("/api") //
+        .jaxRsClasses(mapping.jaxrsResources()) //
         .build();
   }
 
