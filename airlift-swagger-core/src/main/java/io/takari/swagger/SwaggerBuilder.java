@@ -70,12 +70,6 @@ public class SwaggerBuilder {
     // We know here that all these classes have a class-level JAXRS Path annotation
     //
     for (Class<?> clazz : jaxRsClasses) {
-      //
-      // We don't need to document the SwaggerResource itself
-      //
-      if (clazz.getName().equals(ApiDocsResource.class.getName())) {
-        continue;
-      }
       String resourcePath = clazz.getAnnotation(Path.class).value();
       ApiDeclaration apiDeclaration = new ApiDeclaration();
       apiDeclaration.setBasePath(basePath);
@@ -105,7 +99,7 @@ public class SwaggerBuilder {
       // the ApiDeclaration document.
       //
       String resourceId = stripLeadingSlashIfPresent(resourcePath).replace('{', '_').replace('}', '_').replace("/", "");
-      resourceId = resourceId.substring(0,resourceId.length()-1);
+      resourceId = stripTrailingSlashIfPresent(resourceId);
       apis.put(resourceId, apiDeclaration);
       resourceListing.addApi(apiDeclaration, resourceId);
 
@@ -128,6 +122,13 @@ public class SwaggerBuilder {
   private String stripLeadingSlashIfPresent(String resourcePath) {
     if (resourcePath.startsWith("/")) {
       return resourcePath.substring(1);
+    }
+    return resourcePath;
+  }
+
+  private String stripTrailingSlashIfPresent(String resourcePath) {
+    if (resourcePath.endsWith("/")) {
+      return resourcePath.substring(0, resourcePath.length()-1);
     }
     return resourcePath;
   }
