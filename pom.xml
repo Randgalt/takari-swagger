@@ -12,12 +12,11 @@
   <version>0.1.1-SNAPSHOT</version>
   <packaging>takari-jar</packaging>
 
+  <properties>
+    <jetty9Version>9.0.4.v20130625</jetty9Version>
+  </properties>
+
   <dependencies>
-    <dependency>
-      <groupId>io.airlift</groupId>
-      <artifactId>webserver</artifactId>
-      <version>0.104-SNAPSHOT</version>
-    </dependency>
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
@@ -43,6 +42,33 @@
       <artifactId>paranamer</artifactId>
       <version>2.5.2</version>
     </dependency>
+    
+    <!-- Jetty9 server for testing -->
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>${jetty9Version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-security</artifactId>
+      <version>${jetty9Version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
+      <version>${jetty9Version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty.orbit</groupId>
+      <artifactId>javax.servlet</artifactId>
+      <version>3.0.0.v201112011016</version>
+      <scope>test</scope>      
+    </dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

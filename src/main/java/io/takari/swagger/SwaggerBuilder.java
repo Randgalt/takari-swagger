@@ -1,16 +1,5 @@
 package io.takari.swagger;
 
-import io.takari.swagger.v12.Api;
-import io.takari.swagger.v12.ApiDeclaration;
-import io.takari.swagger.v12.DataType;
-import io.takari.swagger.v12.Model;
-import io.takari.swagger.v12.Operation;
-import io.takari.swagger.v12.Parameter;
-import io.takari.swagger.v12.PrimitiveType;
-import io.takari.swagger.v12.Property;
-import io.takari.swagger.v12.RefDataType;
-import io.takari.swagger.v12.ResourceListing;
-
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -18,8 +7,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -34,6 +23,17 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 
 import com.google.common.collect.Maps;
+
+import io.takari.swagger.v12.Api;
+import io.takari.swagger.v12.ApiDeclaration;
+import io.takari.swagger.v12.DataType;
+import io.takari.swagger.v12.Model;
+import io.takari.swagger.v12.Operation;
+import io.takari.swagger.v12.Parameter;
+import io.takari.swagger.v12.PrimitiveType;
+import io.takari.swagger.v12.Property;
+import io.takari.swagger.v12.RefDataType;
+import io.takari.swagger.v12.ResourceListing;
 
 //
 // TODO: parameterize resourceBase, this needs to come from the server
@@ -50,14 +50,14 @@ public class SwaggerBuilder {
   private final String swaggerApiVersion = "1.0.0"; // I don't actually know what this means
 
   private String basePath;
-  private List<Class<? extends Object>> jaxRsClasses;
+  private Set<Class<? extends Object>> jaxRsClasses;
   
   public SwaggerBuilder basePath(String basePath) {
     this.basePath = basePath;
     return this;
   }
   
-  public SwaggerBuilder jaxRsClasses(List<Class<? extends Object>> jaxRsClasses) {
+  public SwaggerBuilder jaxRsClasses(Set<Class<? extends Object>> jaxRsClasses) {
     this.jaxRsClasses = jaxRsClasses;
     return this;    
   }

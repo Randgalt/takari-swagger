@@ -1,9 +1,7 @@
 package io.takari.swagger;
 
-import io.airlift.http.server.WebModule;
-import io.takari.swagger.v12.ApiDeclaration;
-
 import java.io.IOException;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,6 +12,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.takari.swagger.v12.ApiDeclaration;
+
 @Path("/docs")
 public class ApiDocsResource {
 
@@ -22,10 +22,10 @@ public class ApiDocsResource {
   private final Swagger swagger;
 
   @Inject
-  public ApiDocsResource(WebModule.WebMapping mapping, @Named(API_BASE_PATH) String apiBasePath) {
+  public ApiDocsResource(Set<Class<? extends Object>> jaxrsResources , @Named(API_BASE_PATH) String apiBasePath) {
     swagger = Swagger.builder() //
         .basePath("/api") //
-        .jaxRsClasses(mapping.jaxrsResources()) //
+        .jaxRsClasses(jaxrsResources) //
         .build();
   }
 
