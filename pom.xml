@@ -11,6 +11,13 @@
     <artifactId>takari</artifactId>
     <version>15</version>
   </parent>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>  
+  </licenses>
   <groupId>io.takari.airlift</groupId>
   <artifactId>airlift-swagger</artifactId>
   <version>0.1.1-SNAPSHOT</version>
