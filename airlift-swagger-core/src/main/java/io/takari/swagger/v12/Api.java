@@ -60,12 +60,13 @@ public class Api {
     }
   }
 
-  public Operation addOperation(String nickName, Operation.Method method) {
+  public Operation addOperation(String nickName, Operation.Method method, String description) {
     assert nickName != null && method != null : "operation can not be null and must have a nickname";
+    assert description != null : "description can not be null";
     assert getOperation(nickName) == null : "operation with nickName [" + nickName + "] already exists";
 
     synchronized (operations) {
-      Operation result = new Operation(nickName, method);
+      Operation result = new Operation(nickName, method, description);
       operations.add(result);
       return result;
     }

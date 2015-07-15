@@ -24,6 +24,7 @@ import javax.ws.rs.core.Context;
 
 import com.google.common.collect.Maps;
 
+import io.takari.swagger.annotations.Description;
 import io.takari.swagger.v12.Api;
 import io.takari.swagger.v12.ApiDeclaration;
 import io.takari.swagger.v12.DataType;
@@ -98,10 +99,10 @@ public class SwaggerBuilder {
       // ${baseUrl}/api/user then it will make a call to ${baseUrl}/swagger/user to find
       // the ApiDeclaration document.
       //
-      String resourceId = stripLeadingSlashIfPresent(resourcePath).replace('{', '_').replace('}', '_').replace("/", "");
+      String resourceId = stripLeadingSlashIfPresent(resourcePath).replace('{', '_').replace('}', '_');
       resourceId = stripTrailingSlashIfPresent(resourceId);
       apis.put(resourceId, apiDeclaration);
-      resourceListing.addApi(apiDeclaration, resourceId);
+      resourceListing.addApi(apiDeclaration, resourceId, getDescription(clazz.getAnnotations()));
 
       for (Method method : clazz.getMethods()) {
         if (!isJaxrsMethod(method)) {
@@ -137,7 +138,7 @@ public class SwaggerBuilder {
     if (methodPathAnno != null) {
       String methodPath = methodPathAnno.value();
       if (!methodPath.startsWith("/")) {
-        methodPath += "/";
+        methodPath = "/" + methodPath;
       }
       return resourcePath + methodPath;
     } else {
@@ -166,7 +167,7 @@ public class SwaggerBuilder {
 
     Api api = new Api(apiPath, method.getName(), swaggerMethod);
     //Operation operation = api.addOperation(apiPath, swaggerMethod);
-    Operation operation = api.addOperation(method.getName(), swaggerMethod);
+    Operation operation = api.addOperation(method.getName(), swaggerMethod, getDescription(method.getAnnotations()));
     Produces producesAnno = method.getAnnotation(Produces.class);
     if (producesAnno != null) {
       String[] producesValues = producesAnno.value();
@@ -213,7 +214,7 @@ public class SwaggerBuilder {
       } else {
         parameterDataType = javaToSwaggerType(parameterType);
       }
-      operation.addParameter(parameterName, parameterDataType.getType(), swaggerParamType);
+      operation.addParameter(parameterName, parameterDataType.getType(), swaggerParamType, getDescription(parameterAnnotations));
     }
     return api;
   }
@@ -240,7 +241,7 @@ public class SwaggerBuilder {
   //
   private Model swaggerModel(Class<?> type) {
     Map<String, Property> properties = Maps.newHashMap();
-    Model model = new Model(type.getSimpleName(), "");
+    Model model = new Model(type.getSimpleName(), getDescription(type.getAnnotations()));
     BeanInfo beanInfo;
     try {
       beanInfo = Introspector.getBeanInfo(type);
@@ -254,11 +255,20 @@ public class SwaggerBuilder {
         continue;
       }
       DataType dataType = javaToSwaggerType(pd.getPropertyType());
-      Property property = new Property(propertyName, dataType.toString(), "", true);
+      Property property = new Property(propertyName, dataType.toString(), getDescription(pd.getPropertyType().getAnnotations()), true);
       properties.put(property.getName(), property);
     }
     model.setProperties(properties);
     return model;
+  }
+
+  private static String getDescription(Annotation[] annotations) {
+    for ( Annotation annotation : annotations ) {
+      if ( annotation instanceof Description ) {
+        return ((Description)annotation).value();
+      }
+    }
+    return "";
   }
 
   public static DataType javaToSwaggerType(Class<?> type) {

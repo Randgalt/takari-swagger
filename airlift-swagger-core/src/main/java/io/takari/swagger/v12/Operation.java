@@ -23,9 +23,10 @@ public class Operation {
     GET, POST, PUT, DELETE, HEAD, OPTIONS, PATCH
   }
 
-  public Operation(String nickname, Method method) {
+  public Operation(String nickname, Method method, String description) {
     this.nickname = nickname;
     this.method = method;
+    this.summary = description;
     
     // If the is a nickname of "models" it breaks the Swagger app with:
     // TypeError: undefined is not a function (evaluating 'model.setReferencedModels(this.models)')
@@ -129,8 +130,9 @@ public class Operation {
     }
   }
 
-  public Parameter addParameter(String name, String type, Parameter.ParamType parameterType) {
+  public Parameter addParameter(String name, String type, Parameter.ParamType parameterType, String description) {
     assert type != null : "parameter must be created with type";
+    assert description != null : "parameter must be created with a description";
 
     if (parameterType != Parameter.ParamType.body) {
       assert name != null : "parameter that is not a body must have a name";
@@ -138,7 +140,7 @@ public class Operation {
     }
 
     synchronized (parameters) {
-      Parameter parameter = new Parameter(name, type, parameterType);
+      Parameter parameter = new Parameter(name, type, parameterType, description);
       parameters.add(parameter);
 
       return parameter;
