@@ -40,11 +40,13 @@
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-core</artifactId>
       <version>0.8.2</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.dropwizard</groupId>
       <artifactId>dropwizard-assets</artifactId>
       <version>0.8.2</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
