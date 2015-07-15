@@ -17,10 +17,11 @@ public class Parameter {
     path, query, body, header, form
   }
 
-  Parameter(String name, String type, ParamType paramType) {
+  Parameter(String name, String type, ParamType paramType, String description) {
     this.name = name;
     this.type = type;
     this.paramType = paramType;
+    this.description = description;
   }
   
   public String getType() {

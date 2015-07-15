@@ -46,11 +46,12 @@ public class ResourceListing {
     return Collections.unmodifiableList(apis);
   }
 
-  public ResourceListingApi addApi(ApiDeclaration apiDeclaration, String path) {
+  public ResourceListingApi addApi(ApiDeclaration apiDeclaration, String path, String description) {
     assert apiDeclaration != null : "apiDeclaration can not be null";
+    assert description != null : "description can not be null";
     assert getApi(apiDeclaration.getResourcePath()) == null : "Can not add API to Resource Listing; path already exists";
     synchronized (apis) {
-      ResourceListingApi api = new ResourceListingApi(path, "description");
+      ResourceListingApi api = new ResourceListingApi(path, description);
       apis.add(api);
       return api;
     }
