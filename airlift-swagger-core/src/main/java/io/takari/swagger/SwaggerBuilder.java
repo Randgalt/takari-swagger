@@ -99,7 +99,7 @@ public class SwaggerBuilder {
       // ${baseUrl}/api/user then it will make a call to ${baseUrl}/swagger/user to find
       // the ApiDeclaration document.
       //
-      String resourceId = stripLeadingSlashIfPresent(resourcePath).replace('{', '_').replace('}', '_').replace("/", "");
+      String resourceId = stripLeadingSlashIfPresent(resourcePath).replace('{', '_').replace('}', '_');
       resourceId = stripTrailingSlashIfPresent(resourceId);
       apis.put(resourceId, apiDeclaration);
       resourceListing.addApi(apiDeclaration, resourceId, getDescription(clazz.getAnnotations()));
@@ -138,7 +138,7 @@ public class SwaggerBuilder {
     if (methodPathAnno != null) {
       String methodPath = methodPathAnno.value();
       if (!methodPath.startsWith("/")) {
-        methodPath += "/";
+        methodPath = "/" + methodPath;
       }
       return resourcePath + methodPath;
     } else {
