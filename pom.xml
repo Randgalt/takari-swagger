@@ -51,5 +51,18 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.takari.maven.plugins</groupId>
+        <artifactId>takari-lifecycle-plugin</artifactId>
+        <version>1.9.2</version>
+        <configuration>
+          <transitiveDependencyReference>ignore</transitiveDependencyReference>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
 
