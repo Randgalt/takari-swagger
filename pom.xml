@@ -2,14 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <modules>
-    <module>airlift-swagger-core</module>
-    <module>airlift-swagger-bundle</module>
-  </modules>
   <parent>
     <groupId>io.takari</groupId>
     <artifactId>takari</artifactId>
-    <version>15</version>
+    <version>17</version>
   </parent>
   <licenses>
     <license>
@@ -22,6 +18,11 @@
   <artifactId>airlift-swagger</artifactId>
   <version>0.1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  
+  <modules>
+    <module>airlift-swagger-core</module>
+    <module>airlift-swagger-bundle</module>
+  </modules>
 
   <dependencyManagement>
     <dependencies>
