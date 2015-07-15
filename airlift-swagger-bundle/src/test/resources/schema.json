@@ -1,0 +1,24 @@
+{
+  "apiVersion": "1.0.0",
+  "swaggerVersion": "1.2",
+  "basePath": null,
+  "authorizations": {
+    "authorizations": [
+
+    ]
+  },
+  "apis": [
+    {
+      "path": "test/resource",
+      "description": "This is a mock resource"
+    }
+  ],
+  "info": {
+    "title": null,
+    "description": null,
+    "termsOfServiceUrl": null,
+    "contact": null,
+    "license": null,
+    "licenseUrl": null
+  }
+}

@@ -35,29 +35,17 @@
       <artifactId>javax.inject</artifactId>
     </dependency>
 
-    <!-- Jetty9 server for testing -->
+    <!-- Dropwizard for testing -->
     <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-server</artifactId>
-      <version>${jetty9Version}</version>
+      <groupId>io.dropwizard</groupId>
+      <artifactId>dropwizard-core</artifactId>
+      <version>0.8.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-security</artifactId>
-      <version>${jetty9Version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-util</artifactId>
-      <version>${jetty9Version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty.orbit</groupId>
-      <artifactId>javax.servlet</artifactId>
-      <version>3.0.0.v201112011016</version>
+      <groupId>io.dropwizard</groupId>
+      <artifactId>dropwizard-assets</artifactId>
+      <version>0.8.2</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
