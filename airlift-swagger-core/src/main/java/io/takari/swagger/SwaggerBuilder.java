@@ -208,7 +208,7 @@ public class SwaggerBuilder {
             // the JSON document will not be posted to the server
             //
             parameterName = "body";
-            //apiDeclaration.addModel(model);
+            apiDeclaration.addModel(model);
           }
         }
       } else {
