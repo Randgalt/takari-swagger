@@ -20,8 +20,8 @@
   <packaging>pom</packaging>
   
   <modules>
-    <module>airlift-swagger-core</module>
-    <module>airlift-swagger-bundle</module>
+    <module>takari-swagger-core</module>
+    <module>takari-swagger-bundle</module>
   </modules>
 
   <dependencyManagement>

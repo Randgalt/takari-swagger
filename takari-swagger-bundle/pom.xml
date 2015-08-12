@@ -10,7 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
   <packaging>takari-jar</packaging>
 
-  <artifactId>airlift-swagger-bundle</artifactId>
+  <artifactId>takari-swagger-bundle</artifactId>
 
   <properties>
     <jetty9Version>9.0.4.v20130625</jetty9Version>
@@ -19,7 +19,7 @@
   <dependencies>
     <dependency>
       <groupId>io.takari.airlift</groupId>
-      <artifactId>airlift-swagger-core</artifactId>
+      <artifactId>takari-swagger-core</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
