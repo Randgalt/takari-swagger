@@ -18,4 +18,4 @@ Utilities for working with Swagger
 3. Set the base path for the APIs via `basePath()`
 4. Finally, call `build()`
  
-The returned `Swagger` instance can be used to return the Swagger JSON. Either use takari-swagger-bundle for this or provide your own (see ApiDocsResource.java for an example)
+The returned `Swagger` instance can be used to return the Swagger JSON. Either use takari-swagger-bundle for this or provide your own (see ApiDocsResource.java for an example).
